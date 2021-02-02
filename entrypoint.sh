@@ -23,12 +23,12 @@ fi
 
 if [ -n "$CUSTOM_PATHS" ]; then
   echo "[INFO] Setting custom paths"
-  REPOLINT_ARGS+=" --allowPaths '$CUSTOM_PATHS'"
+  REPOLINT_ARGS="$REPOLINT_ARGS --allowPaths '$CUSTOM_PATHS'"
 fi
 
 if [ -n "$REPORT_FORMAT" ]; then
   echo "[INFO] Setting report format"
-  REPOLINT_ARGS+=" --format '$REPORT_FORMAT'"
+  REPOLINT_ARGS="$REPOLINT_ARGS --format '$REPORT_FORMAT'"
 fi
 
 echo "[INFO] Executing:"
