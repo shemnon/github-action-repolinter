@@ -21,15 +21,21 @@ else
   REPOLINT_ARGS="--rulesetFile repolint.yml"
 fi
 
+echo REPOLINT_ARGS=$REPOLINT_ARGS
+
 if [ -n "$CUSTOM_PATHS" ]; then
   echo "[INFO] Setting custom paths"
   REPOLINT_ARGS="$REPOLINT_ARGS --allowPaths '$CUSTOM_PATHS'"
 fi
 
+echo REPOLINT_ARGS=$REPOLINT_ARGS
+
 if [ -n "$REPORT_FORMAT" ]; then
   echo "[INFO] Setting report format"
   REPOLINT_ARGS="$REPOLINT_ARGS --format '$REPORT_FORMAT'"
 fi
+
+echo REPOLINT_ARGS=$REPOLINT_ARGS
 
 echo "[INFO] Executing:"
 echo "[INFO] repolinter $REPOLINT_ARGS $*"
