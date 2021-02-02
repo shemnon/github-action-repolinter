@@ -7,20 +7,32 @@ echo "[INFO] Installing todogroup/repolinter"
 npm install -g log-symbols 
 npm install -g todogroup/repolinter 
 
+REPOLINT_ARGS=""
+
 if [ -n "$CUSTOM_REPOLINT_URL" ]; then
   echo "[INFO] Insert CUSTOM configuration url"
-  REPOLINT_ARG="--rulesetUrl $CUSTOM_REPOLINT_URL"
+  REPOLINT_ARGS="--rulesetUrl '$CUSTOM_REPOLINT_URL'"
 elif [ -n "$CUSTOM_REPOLINT_FILE" ]; then
   echo "[INFO] Insert CUSTOM configuration file"
-  REPOLINT_ARG="--rulesetFile $CUSTOM_REPOLINT_FILE"
+  REPOLINT_ARGS="--rulesetFile '$CUSTOM_REPOLINT_FILE'"
 else
   echo "[INFO] Insert default configuration"
   cp /repolinter/repolint.yml .
-  REPOLINT_ARG="--rulesetFile repolint.yml"
+  REPOLINT_ARGS="--rulesetFile repolint.yml"
+fi
+
+if [ -n "$CUSTOM_PATHS" ]; then
+  echo "[INFO] Setting custom paths"
+  REPOLINT_ARGS+=" --allowPaths '$CUSTOM_PATHS'"
+fi
+
+if [ -n "$REPORT_FORMAT" ]; then
+  echo "[INFO] Setting report format"
+  REPOLINT_ARGS+=" --format '$REPORT_FORMAT'"
 fi
 
 echo "[INFO] Executing:"
-echo "[INFO] repolinter $*"
+echo "[INFO] repolinter $REPOLINT_ARGS $*"
 echo "::endgroup::"
 
-sh -c "repolinter $REPOLINT_ARG $*"
+sh -c "repolinter $REPOLINT_ARGS $*"

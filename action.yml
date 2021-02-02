@@ -7,14 +7,24 @@ branding:
 
 inputs:
   custom-repolint-url:
-    description: "a url to a custom-repolint-file you wish to use"
+    description: "A url to a custom-repolint-file you wish to use. Overrules `custom-repolint-file`."
     required: false
   custom-repolint-file:
-    description: "a path to a custom-repolint-file you wish to use"
+    description: "A path to a custom-repolint-file you wish to use. Ignored if `custom-repolint-url` is set."
     required: false
+  custom-paths:
+    description: "Directories to limit repolinter evaluation to."
+    required: false
+  report-format:
+    description: "The formatter to use with outputs."
+    required: false
+    default: "markdown"
+    
 runs:
   using: "docker"
   image: "Dockerfile"
   env:
     CUSTOM_REPOLINT_FILE: ${{ inputs.custom-repolint-file }}
     CUSTOM_REPOLINT_URL: ${{ inputs.custom-repolint-url }}
+    CUSTOM_PATHS: ${{ inputs.custom-paths }}
+    REPORT_FORMAT: ${{ inputs.report-format }}
